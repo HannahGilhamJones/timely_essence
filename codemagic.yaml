@@ -6,6 +6,8 @@ workflows:
       flutter: stable
       xcode: latest
       cocoapods: default
+      vars:
+        CODECOV_TOKEN: Encrypted(...)
     cache:
       cache_paths:
         - $HOME/.gradle/caches
@@ -34,6 +36,11 @@ workflows:
           mkdir -p test-results
           flutter test --machine > test-results/flutter.json      
         test_report: test-results/flutter.json
+      - name: Coverage Test
+        script: |
+          #!/bin/bash
+          flutter test --coverage
+          bash <(curl -s https://codecov.io/bash) -t $CODECOV_TOKEN    
     artifacts:
       - flutter_drive.log
     publishing:

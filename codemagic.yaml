@@ -1,0 +1,35 @@
+workflows:
+  default-workflow:
+    name: Default Workflow
+    max_build_duration: 60
+    environment:
+      flutter: stable
+      xcode: latest
+      cocoapods: default
+    cache:
+      cache_paths:
+        - $HOME/.gradle/caches
+        - $FLUTTER_ROOT/.pub-cache
+    triggering:
+      events:
+        - push
+      branch_patterns:
+        - pattern: main
+          include: true
+          source: true
+      tag_patterns:
+        - pattern: '*'
+          include: true
+    scripts:
+      - flutter emulators --launch apple_ios_simulator
+      - flutter packages pub get
+      - 'flutter '
+      - flutter pub global run dart_code_metrics:metrics analyze lib
+      - flutter drive --target=test_driver/main.dart
+      - flutter test
+    artifacts:
+      - flutter_drive.log
+    publishing:
+      email:
+        recipients:
+          - hannahmilton@live.co.uk

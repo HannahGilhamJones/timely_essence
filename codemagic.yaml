@@ -24,9 +24,16 @@ workflows:
       - flutter emulators --launch apple_ios_simulator
       - flutter packages pub get
       - 'flutter '
-      - flutter pub global run dart_code_metrics:metrics analyze lib
-      - flutter drive --target=test_driver/main.dart
-      - flutter test
+      - name: Dart Code Metrics
+        script: |
+          mkdir -p metrics-results
+          flutter pub run dart_code_metrics:metrics analyze lib --reporter=json > metrics-results/dart_code_metrics.json      
+        test_report: metrics-results/dart_code_metrics.json
+      - name: Unit tests
+        script: |
+          mkdir -p test-results
+          flutter test --machine > test-results/flutter.json      
+        test_report: test-results/flutter.json
     artifacts:
       - flutter_drive.log
     publishing:

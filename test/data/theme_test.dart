@@ -2,15 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:timely_essence/main.dart';
+import 'package:timely_essence/core.dart';
 
 void main() {
   testWidgets('Dark theme on system enables dark theme in app',
       (WidgetTester tester) async {
     tester.binding.window.platformBrightnessTestValue = Brightness.dark;
 
-    await tester.pumpWidget(MyApp());
+    await tester.pumpWidget(TimelyEssence());
 
-    final finder = find.byType(MyHomePage);
+    final finder = find.byType(Core);
 
     expect(finder, findsOneWidget);
 
@@ -25,9 +26,9 @@ void main() {
       (WidgetTester tester) async {
     tester.binding.window.platformBrightnessTestValue = Brightness.light;
 
-    await tester.pumpWidget(MyApp());
+    await tester.pumpWidget(TimelyEssence());
 
-    final finder = find.byType(MyHomePage);
+    final finder = find.byType(Core);
 
     expect(finder, findsOneWidget);
 

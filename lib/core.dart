@@ -10,12 +10,20 @@ class Core extends StatefulWidget {
 }
 
 class _CoreState extends State<Core> {
-  int _counter = 0;
+  final PageController _controller = PageController(
+    initialPage: 0,
+  );
+  int _selectedPageIndex = 0;
 
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
   }
 
   @override
@@ -24,24 +32,64 @@ class _CoreState extends State<Core> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'You have pushed the button this many times:',
+      body: PageView(
+        controller: _controller,
+        onPageChanged: (int index) {
+          setState(
+            () {
+              _selectedPageIndex = index;
+            },
+          );
+        },
+        children: [
+          Container(
+            key: Key('timerPage'),
+            color: Colors.green,
+            child: Center(
+              child: Text('Timer'),
             ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ],
-        ),
+          ),
+          Container(
+            key: Key('stopwatchPage'),
+            color: Colors.blue,
+          ),
+          Container(
+            key: Key('settingsPage'),
+            color: Colors.red,
+          ),
+        ],
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
+      bottomNavigationBar: BottomNavigationBar(
+        key: Key('bottomNavigationBar'),
+        currentIndex: _selectedPageIndex,
+        onTap: (int index) {
+          _selectedPageIndex = index;
+          _controller.animateToPage(index,
+              duration: Duration(milliseconds: 500), curve: Curves.ease);
+        },
+        items: [
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.timer,
+              semanticLabel: 'Timer',
+            ),
+            label: 'Timer',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.timelapse_rounded,
+              semanticLabel: 'Stopwatch',
+            ),
+            label: 'Stopwatch',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.settings,
+              semanticLabel: 'Settings',
+            ),
+            label: 'Settings',
+          ),
+        ],
       ),
     );
   }

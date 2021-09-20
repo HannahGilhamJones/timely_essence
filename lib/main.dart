@@ -1,66 +1,21 @@
 import 'package:flutter/material.dart';
 
-import 'package:timely_essence/data/theme.dart';
+import 'package:timely_essence/core.dart';
+import 'package:timely_essence/data/user_messages.dart';
+import 'package:timely_essence/utils/themes.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(TimelyEssence());
 }
 
-class MyApp extends StatelessWidget {
+class TimelyEssence extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Timely Essence',
+      title: UserMessages.APP_TITLE,
       theme: Themes().currentTheme,
-      home: MyHomePage(
-        title: 'Timely Essence',
-      ),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key? key, required this.title}) : super(key: key);
-
-  final String title;
-
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
+      home: Core(
+        title: UserMessages.APP_TITLE,
       ),
     );
   }

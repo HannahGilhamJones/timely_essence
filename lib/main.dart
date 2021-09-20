@@ -11,7 +11,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Timely Essence',
-      theme: Themes.currentTheme(),
+      theme: Themes().currentTheme,
       home: MyHomePage(
         title: 'Timely Essence',
       ),

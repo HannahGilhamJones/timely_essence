@@ -36,10 +36,6 @@ workflows:
           mkdir -p test-results
           flutter test --machine > test-results/flutter.json      
         test_report: test-results/flutter.json
-      - name: Integration tests
-        script: |
-          flutter test integration_test/ --machine > test-results/integration.json
-        test_report: test-results/integration.json
       - name: Coverage Test
         script: |
           #!/bin/bash

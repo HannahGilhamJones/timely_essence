@@ -38,7 +38,8 @@ workflows:
         test_report: test-results/flutter.json
       - name: Integration tests
         script: |
-          flutter drive --debug --driver=test_driver/integration_test.dart --target=integration_test/core_test.dart
+          flutter emulators --launch emulator & adb wait-for-device 
+          flutter drive --driver=test_driver/integration_test.dart --target=integration_test/core_test.dart -d emulator-5554
       - name: Coverage Test
         script: |
           #!/bin/bash

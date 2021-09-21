@@ -38,7 +38,7 @@ workflows:
         test_report: test-results/flutter.json
       - name: Integration tests
         script: |
-          flutter drive --driver=test_driver/integration_test.dart --target=integration_test/core_test.dart
+          flutter drive --debug --driver=test_driver/integration_test.dart --target=integration_test/core_test.dart
       - name: Coverage Test
         script: |
           #!/bin/bash

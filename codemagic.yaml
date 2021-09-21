@@ -23,7 +23,7 @@ workflows:
         - pattern: '*'
           include: true
     scripts:
-      - flutter emulators --launch apple_ios_simulator
+      - flutter emulators --launch emulator
       - flutter packages pub get
       - 'flutter '
       - name: Dart Code Metrics

@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:timely_essence/screens/settings/settings_screen.dart';
+import 'package:timely_essence/screens/stopwatch/stopwatch_screen.dart';
+import 'package:timely_essence/screens/timer/timer_screen.dart';
 
 class Core extends StatefulWidget {
   Core({Key? key, required this.title}) : super(key: key);
@@ -42,21 +45,9 @@ class _CoreState extends State<Core> {
           );
         },
         children: [
-          Container(
-            key: Key('timerPage'),
-            color: Colors.green,
-            child: Center(
-              child: Text('Timer'),
-            ),
-          ),
-          Container(
-            key: Key('stopwatchPage'),
-            color: Colors.blue,
-          ),
-          Container(
-            key: Key('settingsPage'),
-            color: Colors.red,
-          ),
+          TimerScreen(),
+          StopwatchScreen(),
+          SettingsScreen(),
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(

@@ -5,15 +5,17 @@ import 'package:timely_essence/screens/timer/timer_screen.dart';
 
 void main() {
   testWidgets(
-    'Screen should have Timer somewhere on the screen',
+    'Screen should have Timer Text somewhere on the screen',
     (WidgetTester tester) async {
       await tester.pumpWidget(
         MaterialApp(
-          home: TimerScreen(),
+          home: Scaffold(
+            body: TimerScreen(),
+          ),
         ),
       );
 
-      final finder = find.text('Timer');
+      final finder = find.byType(TimerText);
 
       expect(finder, findsOneWidget,
           reason: 'Timer text should exist on the screen');

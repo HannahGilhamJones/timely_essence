@@ -5,7 +5,7 @@ import 'package:timely_essence/bloc/timer/timer_bloc.dart';
 import 'package:timely_essence/models/ticker.dart';
 
 class TimerScreen extends StatefulWidget {
-  const TimerScreen({Key? key}) : super(key: key);
+  const TimerScreen() : super(key: const Key('timerPage'));
 
   @override
   _TimerScreenState createState() => _TimerScreenState();

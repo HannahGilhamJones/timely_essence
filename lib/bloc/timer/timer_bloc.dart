@@ -29,12 +29,27 @@ class TimerBloc extends Bloc<TimerEvent, TimerState> {
   }
 
   @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is TimerBloc &&
+          runtimeType == other.runtimeType &&
+          _ticker == other._ticker &&
+          _tickerSubscription == other._tickerSubscription;
+
+  @override
+  int get hashCode => _ticker.hashCode + _tickerSubscription.hashCode;
+
+  @override
   Future<void> close() {
     _tickerSubscription?.cancel();
     return super.close();
   }
 
   void _onStarted(TimerStart event, Emitter<TimerState> emit) {
+    if (state is TimerInProgress) {
+      return;
+    }
+
     emit(TimerInProgress(event.duration));
     _tickerSubscription = _ticker
         .tickStream(ticks: event.duration)
@@ -74,6 +89,10 @@ class TimerBloc extends Bloc<TimerEvent, TimerState> {
   }
 
   void _onCompleted(TimerComplete event, Emitter<TimerState> emit) {
+    if (state is TimerInitial) {
+      return;
+    }
+
     _tickerSubscription?.cancel();
     emit(TimerCompleted());
     print('Timer has completed');
